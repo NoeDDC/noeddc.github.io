@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cinq petits jeux</title>
+<meta name="description" content="Pouf Pouf, Chut Chut, Tchou Tchou, Glou Glou et Plop Plop.">
+<style>
+:root { --fond: #f4f6f9; --carte: #fff; --texte: #17212e; --doux: #5a6472; --bleu: #1f3a5f; --bouton: #1a5fb4; }
+@media (prefers-color-scheme: dark) { :root { --fond: #10161e; --carte: #1b2430; --texte: #eef2f6; --doux: #a7b2c0; --bleu: #cfe0f5; --bouton: #4f94e8; } }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--fond); color: var(--texte); font: 16px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+main { max-width: 520px; margin: 0 auto; padding: 28px 16px 24px; }
+h1 { margin: 0 0 4px; font-size: 26px; color: var(--bleu); }
+.chapeau { margin: 0 0 20px; color: var(--doux); }
+ul { list-style: none; margin: 0; padding: 0; }
+.jeu { display: flex; gap: 14px; padding: 14px; margin-bottom: 12px; background: var(--carte); border-radius: 16px; }
+.jeu img { flex: none; border-radius: 16px; }
+.texte { min-width: 0; flex: 1; }
+h2 { margin: 0; font-size: 18px; }
+.texte p { margin: 2px 0 10px; color: var(--doux); font-size: 15px; }
+.boutons { display: flex; flex-wrap: wrap; gap: 8px; }
+.bouton { display: inline-block; padding: 9px 16px; border-radius: 10px; background: var(--bouton); color: #fff; font-weight: 600; text-decoration: none; }
+.bouton.second { background: none; color: var(--bouton); box-shadow: inset 0 0 0 1.5px var(--bouton); }
+footer { margin-top: 18px; color: var(--doux); font-size: 13px; }
+footer a { color: inherit; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Cinq petits jeux</h1>
+  <p class="chapeau">À toi de choisir.</p>
+  <ul>
+    <li class="jeu" data-jeu="pouf">
+      <img src="icones/pouf.jpg" alt="" width="72" height="72">
+      <div class="texte">
+        <h2>Pouf Pouf</h2>
+        <p>Gonfle, lâche pile sur la ligne.</p>
+        <div class="boutons"><a class="bouton" data-code="pouf" data-id="6831557445" href="https://apps.apple.com/fr/app/id6831557445">App Store</a><a class="bouton second" href="https://play.google.com/store/apps/details?id=app.poufpouf">Google Play</a></div>
+      </div>
+    </li>
+    <li class="jeu" data-jeu="chut">
+      <img src="icones/chut.jpg" alt="" width="72" height="72">
+      <div class="texte">
+        <h2>Chut Chut</h2>
+        <p>Traverse sans réveiller le bébé monstre.</p>
+        <div class="boutons"><a class="bouton" data-code="chut" data-id="6831562451" href="https://apps.apple.com/fr/app/id6831562451">App Store</a></div>
+      </div>
+    </li>
+    <li class="jeu" data-jeu="tchou">
+      <img src="icones/tchou.jpg" alt="" width="72" height="72">
+      <div class="texte">
+        <h2>Tchou Tchou</h2>
+        <p>Trace les rails devant le train.</p>
+        <div class="boutons"><a class="bouton" data-code="tchou" data-id="6831565288" href="https://apps.apple.com/fr/app/id6831565288">App Store</a></div>
+      </div>
+    </li>
+    <li class="jeu" data-jeu="glou">
+      <img src="icones/glou.jpg" alt="" width="72" height="72">
+      <div class="texte">
+        <h2>Glou Glou</h2>
+        <p>Verse pile à la ligne, sans déborder.</p>
+        <div class="boutons"><a class="bouton" data-code="glou" data-id="6831609491" href="https://apps.apple.com/fr/app/id6831609491">App Store</a><a class="bouton second" href="https://play.google.com/store/apps/details?id=app.orapace.glouglou">Google Play</a></div>
+      </div>
+    </li>
+    <li class="jeu" data-jeu="plop">
+      <img src="icones/plop.jpg" alt="" width="72" height="72">
+      <div class="texte">
+        <h2>Plop Plop</h2>
+        <p>Fais grossir ta boule, puis PLOP.</p>
+        <div class="boutons"><a class="bouton" data-code="plop" data-id="6827996709" href="https://apps.apple.com/fr/app/id6827996709">App Store</a><a class="bouton second" href="https://play.google.com/store/apps/details?id=app.plopplop">Google Play</a></div>
+      </div>
+    </li>
+  </ul>
+  <footer>Téléchargement gratuit, avec publicités et achats intégrés. <a href="https://noeddc.github.io/oratime-site/mentions-legales.html">Mentions légales</a></footer>
+</main>
+<script>
+// Sans suivi ni cookie. ?s=ig, ?s=tt ou rien (publications gratuites) choisit le lien de campagne Apple.
+// ?j=pouf ne montre qu'un jeu : une annonce ne doit pas offrir les quatre autres, sinon la comparaison tombe.
+const PT = "";
+const options = new URLSearchParams(location.search);
+const source = options.get("s");
+const seul = document.querySelector(`[data-jeu="${CSS.escape(options.get("j") || "")}"]`);
+if (seul) {
+  document.querySelectorAll("[data-jeu]").forEach((li) => { if (li !== seul) li.remove(); });
+  document.querySelector("h1").remove();
+  document.querySelector(".chapeau").remove();
+}
+const prefixe = ["ig", "tt"].includes(source) ? source : "og";
+if (PT) document.querySelectorAll("[data-id]").forEach((a) => {
+  a.href = `https://apps.apple.com/fr/app/id${a.dataset.id}?pt=${PT}&ct=${prefixe}-${a.dataset.code}&mt=8`;
+});
+</script>
+</body>
+</html>
